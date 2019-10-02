@@ -35,7 +35,7 @@ class Big2
         }
 
         if ($isFlush) {
-            if ($this->isStraight($isFlush)) {
+            if ($this->isStraight()) {
                 $this->result = "同花順";
             } else {
                 $this->result =  "順子";
@@ -43,16 +43,14 @@ class Big2
         }
     }
 
-    private function isStraight($isFlush)
+    private function isStraight()
     {
-        if ($isFlush) {
-            $folwers = array_column($this->cards, "folwer");
-            $folwers = array_unique($folwers);
-            if (count($folwers) == 1) {
-                return true;
-            } else {
-                return false;
-            }
+        $folwers = array_column($this->cards, "folwer");
+        $folwers = array_unique($folwers);
+        if (count($folwers) == 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 
