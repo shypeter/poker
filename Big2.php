@@ -27,11 +27,12 @@ class Big2
         $isFlush = false;
         $numbers = array_column($this->cards, "intNumber");
         asort($numbers);
-
-        if (($numbers[0] == 1) && ($numbers[1] == 10)) {
-            $isFlush = true;
+        $numbers = array_values($numbers);
+        if (($numbers[0] == 1) && ($numbers[1] == 10) && ($numbers[1] + 3 == $numbers[4])
+        ) {
+            $isFlush = $this->loopToCheckNumber($numbers, 1);
         } else if (($numbers[0] + 4) == $numbers[4]) {
-            $isFlush = true;
+            $isFlush = $this->loopToCheckNumber($numbers, 0);
         }
 
         if ($isFlush) {
@@ -41,6 +42,18 @@ class Big2
                 $this->result =  "順子";
             }
         }
+    }
+
+    private function loopToCheckNumber($numbers, $start)
+    {
+        $rtn = true;
+        for ($i=$start ; $i<(count($numbers) -1) ; $i++) {
+            if (($numbers[$i] + 1) != $numbers[$i+1]) {
+                $rtn = false;
+                break;
+            }
+        }
+        return $rtn;
     }
 
     private function isStraight()

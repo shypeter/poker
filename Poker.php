@@ -32,13 +32,14 @@ class Poker
                 } else {
                     throw new \Exception("Card repeated");
                 }
-
                 $startIndex += 2;
             }
+
         } catch (Exception $e) {
             $this->cards = [];
             $this->errMsg = $e->getMessage();
         }
+
     }
 
     public function getCards()
@@ -54,7 +55,9 @@ class Poker
         ) {
             return false;
         } else {
-            $this->uniqueCards[$folwer] = [];
+            if (!isset($this->uniqueCards[$folwer])) {
+                $this->uniqueCards[$folwer] = [];
+            }
             $this->uniqueCards[$folwer][$number] = true;
             return true;
         }
