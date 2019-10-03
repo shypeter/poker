@@ -1,10 +1,6 @@
 <?php
 
-namespace test;
-
-require("Poker.php");
-require("Big2.php");
-require("CardsGenerator.php");
+include_once __DIR__ . "/autoload.php";
 
 //$stringPattern = [
 //    "2K2T3Q2J29",
@@ -21,16 +17,16 @@ require("CardsGenerator.php");
 //];
 
 echo "gen cards sets : " . date("Y-m-d H:i:s\n");
-$generator = new CardsGenerator(5, 1000000);
+$generator = new dev\CardsGenerator(5, 1000000);
 $stringPattern = $generator->getAmountCardsSet();
 echo "end gen : " . date("Y-m-d H:i:s\n");
 
 echo "start check pattern : " . date("Y-m-d H:i:s\n");
 foreach ($stringPattern as $string) {
-    $poker = new Poker($string);
+    $poker = new dev\Poker($string);
     list($cards, $errMsg) = $poker->getCards();
     if ($cards) {
-        $big2 = new Big2($cards);
+        $big2 = new dev\Big2($cards);
         $result = $big2->checkPattern();
 
         //var_dump($cards);

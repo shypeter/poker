@@ -1,8 +1,6 @@
 <?php
 
-namespace test;
-
-use Exception;
+namespace dev;
 
 class Poker
 {
@@ -21,40 +19,24 @@ class Poker
         $this->checkStringLength($string);
         try {
             while (($pattern = substr($string, $startIndex, 2)) !== "") {
-                $folwer = $this->getFolwer(substr($pattern, 0, 1));
-                $number = substr($pattern, 1, 1);
-                if ($this->isUniqueCard($folwer, $number)) {
-                    $this->cards[] = [
-                        "folwer" => $folwer,
-                        "number" => $number,
-                        "intNumber" => $this->getIntNumber($number),
-                    ];
-                } else {
-                    throw new \Exception("Card repeated");
-                }
+                $folwer = $pattern[0];
+                $number = $pattern[1];
+                $this->cards[] = [
+                    "folwer" => $folwer,
+                    "number" => $number,
+                    "intNumber" => $this->getIntNumber($number),
+                ];
                 $startIndex += 2;
             }
-
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->cards = [];
             $this->errMsg = $e->getMessage();
         }
-
     }
 
     public function getCards()
     {
         return [$this->cards, $this->errMsg];
-    }
-
-    private function isUniqueCard($folwer, $number)
-    {
-        if (isset($this->uniqueCards[$folwer.$number])) {
-            return false;
-        } else {
-            $this->uniqueCards[$folwer.$number] = true;
-            return true;
-        }
     }
 
     private function checkStringLength($string)

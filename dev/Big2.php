@@ -1,6 +1,6 @@
 <?php
 
-namespace test;
+namespace dev;
 
 class Big2
 {
