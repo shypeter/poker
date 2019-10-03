@@ -21,7 +21,7 @@ require("CardsGenerator.php");
 //];
 
 echo "gen cards sets : " . date("Y-m-d H:i:s\n");
-$generator = new CardsGenerator(5, 999999);
+$generator = new CardsGenerator(5, 1000000);
 $stringPattern = $generator->getAmountCardsSet();
 echo "end gen : " . date("Y-m-d H:i:s\n");
 

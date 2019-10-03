@@ -43,16 +43,10 @@ class CardsGenerator
 
     private function isUniqueCard($folwer, $number)
     {
-        if (
-            isset($this->uniqueCards[$folwer]) &&
-            isset($this->uniqueCards[$folwer][$number])
-        ) {
+        if (isset($this->uniqueCards[$folwer.$number])) {
             return false;
         } else {
-            if (!isset($this->uniqueCards[$folwer])) {
-                $this->uniqueCards[$folwer] = [];
-            }
-            $this->uniqueCards[$folwer][$number] = true;
+            $this->uniqueCards[$folwer.$number] = true;
             return true;
         }
     }
