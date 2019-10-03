@@ -26,7 +26,6 @@ class Big2
     {
         $isFlush = false;
         $numbers = array_column($this->cards, "intNumber");
-        asort($numbers);
         $numbers = array_values($numbers);
         if (($numbers[0] == 1) && ($numbers[1] == 10) && ($numbers[1] + 3 == $numbers[4])
         ) {
@@ -69,21 +68,22 @@ class Big2
 
     private function checkFourOfAKind()
     {
-        $this->checkByParameters("鐵支", 4, 1);
+        $this->checkByParameters("鐵支", 1, 4);
     }
 
     private function checkFullHouse()
     {
-        $this->checkByParameters("葫蘆", 3, 2);
+        $this->checkByParameters("葫蘆", 2, 3);
     }
 
     private function checkByParameters($resultType, $groupOneCount, $groupTwoCount)
     {
         if ($this->result == "") {
             $numbers = array_column($this->cards, "intNumber");
-            $counts = array_count_values($numbers);
-            arsort($counts);
-            if ((array_shift($counts) == $groupOneCount) && (array_shift($counts) == $groupTwoCount)) {
+            $counts = array_values(array_count_values($numbers));
+            if (($counts[0] == $groupOneCount) && ($counts[1] == $groupTwoCount)) {
+                $this->result = $resultType;
+            } else if (($counts[0] == $groupTwoCount) && ($counts[1] == $groupOneCount)) {
                 $this->result = $resultType;
             }
         }

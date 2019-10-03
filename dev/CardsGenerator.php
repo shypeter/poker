@@ -29,10 +29,10 @@ class CardsGenerator
             $cardString = "";
             $this->uniqueCards = [];
             for ($card = 0; $card < $this->cards; $card++) {
-                $folwer = $this->getFlower();
+                $flower = $this->getFlower();
                 $number = $this->getNumber();
-                if ($this->isUniqueCard($folwer, $number)) { 
-                    $cardString .= $folwer . $number;
+                if ($this->isUniqueCard($flower, $number)) { 
+                    $cardString .= $flower . $number;
                 } else {
                     $card -= 1;
                 }
@@ -41,12 +41,12 @@ class CardsGenerator
         }
     }
 
-    private function isUniqueCard($folwer, $number)
+    private function isUniqueCard($flower, $number)
     {
-        if (isset($this->uniqueCards[$folwer.$number])) {
+        if (isset($this->uniqueCards[$flower.$number])) {
             return false;
         } else {
-            $this->uniqueCards[$folwer.$number] = true;
+            $this->uniqueCards[$flower.$number] = true;
             return true;
         }
     }
@@ -54,8 +54,8 @@ class CardsGenerator
     private function getFlower()
     {
         $index = rand(0, 3);
-        $folwer = ["1", "2", "3", "4"];
-        return $folwer[$index];
+        $flower = ["1", "2", "3", "4"];
+        return $flower[$index];
     }
 
     private function getNumber()

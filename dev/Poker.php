@@ -19,10 +19,10 @@ class Poker
         $this->checkStringLength($string);
         try {
             while (($pattern = substr($string, $startIndex, 2)) !== "") {
-                $folwer = $pattern[0];
+                $flower = $this->getFlower($pattern[0]);
                 $number = $pattern[1];
                 $this->cards[] = [
-                    "folwer" => $folwer,
+                    "flower" => $flower,
                     "number" => $number,
                     "intNumber" => $this->getIntNumber($number),
                 ];
@@ -34,8 +34,19 @@ class Poker
         }
     }
 
+    private function cardSort()
+    {
+        return function ($cardA, $cardB) {
+            if ($cardA['intNumber'] == $cardB['intNumber']) {
+                return 0;
+            }
+            return ($cardA['intNumber'] < $cardB['intNumber']) ? -1 : 1;
+        };
+    }
+
     public function getCards()
     {
+        usort($this->cards, $this->cardSort());
         return [$this->cards, $this->errMsg];
     }
 
@@ -47,18 +58,18 @@ class Poker
         }
     }
 
-    private function getFolwer($char)
+    private function getFlower($char)
     {
-        $folwer = [
+        $flower = [
             "1" => "spade",
             "2" => "heart",
             "3" => "diamond",
             "4" => "club"
         ];
-        if (isset($folwer[$char])) {
-            return $folwer[$char];
+        if (isset($flower[$char])) {
+            return $flower[$char];
         } else {
-            throw new \Exception("Input error Folwer card");
+            throw new \Exception("Input error Flower card");
         }
     }
 
